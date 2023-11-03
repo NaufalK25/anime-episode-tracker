@@ -10,27 +10,24 @@ const Home = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [animeSearch, setAnimeSearch] = useState<any>({});
+  const [animeTitle, setAnimeTitle] = useState('');
   const [keyword, setKeyword] = useState(searchParams.get('q') || '');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  const getRandomAnimeTitle = () => {
-    const animeTitles = [
-      'Bleach',
-      'Dragon Ball Z',
-      'Fullmetal Alchemist: Brotherhood',
-      'Hunter x Hunter',
-      'Jujutsu Kaisen',
-      'Kimetsu no Yaiba',
-      'Naruto: Shippuden',
-      'One Piece',
-      'Shingeki no Kyojin',
-      'Spy x Family'
-    ];
+  useEffect(() => {
+    const getAnimeTitle = async () => {
+      try {
+        const animeTitle = await fetchWrapper('/random/anime');
+        setAnimeTitle(animeTitle.data.title);
+      } catch (err) {
+        setAnimeTitle('');
+      }
+    };
 
-    return animeTitles[Math.floor(Math.random() * animeTitles.length)];
-  };
+    getAnimeTitle();
+  }, []);
 
   useEffect(() => {
     const getAnimeSearch = async () => {
@@ -38,7 +35,7 @@ const Home = () => {
         if (keyword.length > 0) {
           setLoading(true);
           const animeSearch = await fetchWrapper(
-            `/anime?q=${keyword}&page=${currentPage}&limit=16`
+            `/anime?q=${keyword}&page=${currentPage}&limit=16&sfw`
           );
           setAnimeSearch(animeSearch);
           setTotalPage(animeSearch.pagination.last_visible_page);
@@ -103,7 +100,7 @@ const Home = () => {
           <input
             className='outline-none bg-transparent p-1 border border-b-black border-transparent text-md'
             type='search'
-            placeholder={getRandomAnimeTitle()}
+            placeholder={animeTitle}
             onKeyDown={event => handleInputEnterKey(event)}
           />
 
