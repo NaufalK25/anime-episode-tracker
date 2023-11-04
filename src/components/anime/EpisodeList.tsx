@@ -24,14 +24,6 @@ const EpisodeList = ({ malId, status }: { malId?: number; status: string }) => {
           `/anime/${malId}/episodes?page=${currentPage}`
         );
         const totalPage = episodeList.pagination.last_visible_page;
-
-        // for (let i = 2; i <= totalPage; i++) {
-        //   const episodeListI = await fetchWrapper(
-        //     `/anime/${malId}/episodes?page=${i}`
-        //   );
-        //   episodeList.data = episodeList.data.concat(episodeListI.data);
-        // }
-
         setEpisodeList(episodeList);
         setTotalPage(totalPage);
       } catch (err) {
