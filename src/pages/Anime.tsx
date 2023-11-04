@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 import AnimeDetail from '../components/anime/AnimeDetail';
-import EpisodeList from '../components/anime/EpisodeList';
 import Header from '../components/Header';
 
 const Anime = () => {
@@ -11,10 +10,7 @@ const Anime = () => {
   return (
     <>
       <Header />
-      <main>
-        <AnimeDetail malId={malId} />
-        <EpisodeList malId={malId} />
-      </main>
+      <AnimeDetail malId={malId} />
     </>
   );
 };

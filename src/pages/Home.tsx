@@ -146,7 +146,7 @@ const Home = () => {
                 Prev
               </button>
               <p className='border border-blue-300 rounded-md px-4 py-2'>
-                {currentPage}
+                {currentPage}/{totalPage}
               </p>
               <button
                 className='disabled:bg-blue-100 bg-blue-300 rounded-md p-2'

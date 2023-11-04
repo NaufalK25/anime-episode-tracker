@@ -6,13 +6,11 @@ const AnimeCard = ({ anime }: { anime: any }) => {
       to={`/anime/${anime.mal_id}`}
       className='flex flex-col justify-between items-center border border-blue-300 shadow rounded-md p-4'
     >
-      <picture>
-        <img
-          src={anime.images.webp.image_url}
-          alt={anime.title}
-          width={200}
-        />
-      </picture>
+      <img
+        src={anime.images.jpg.image_url}
+        alt={anime.title}
+        width={200}
+      />
       <p>{anime.title}</p>
     </Link>
   );
