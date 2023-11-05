@@ -25,6 +25,12 @@ const AnimeDetail = () => {
     <main className='p-2'>
       <div className='flex gap-x-3'>
         <div className='flex flex-col'>
+          <Link
+            to='/'
+            className='hover:underline text-blue-600 hover:text-blue-800'
+          >
+            &larr; Go Back
+          </Link>
           <p className='font-bold text-md max-w-xs'>{animeDetail.title}</p>
           <img
             src={animeDetail.images?.jpg?.image_url}
@@ -96,7 +102,7 @@ const AnimeDetail = () => {
                     .map((entry: any) => (
                       <Link
                         to={`/anime/${entry.mal_id}`}
-                        className='hover:underline'
+                        className='hover:underline text-blue-600 hover:text-blue-800'
                         key={entry.mal_id}
                       >
                         {relation.relation}: {entry.name}

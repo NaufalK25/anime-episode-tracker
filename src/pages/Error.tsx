@@ -10,7 +10,7 @@ const Error = () => {
         <p className='text-xl'>No Anime Here &#x1F997;&#x1F997;&#x1F997;</p>
         <Link
           to='/'
-          className='text-xl underline text-blue-600 hover:text-blue-800'
+          className='text-xl hover:underline text-blue-600 hover:text-blue-800'
         >
           &larr; Go Back
         </Link>
