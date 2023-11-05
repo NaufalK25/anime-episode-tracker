@@ -9,7 +9,7 @@ import { fetchWrapper } from '../../utils/api';
 
 dayjs.extend(relativeTime);
 
-const EpisodeList = ({ malId, status }: { malId?: number; status: string }) => {
+const EpisodeList = ({ malId, status }: { malId: string; status: string }) => {
   const [episodeList, setEpisodeList] = useState<any>({});
   const [displayMode, setDisplayMode] = useState(
     window.localStorage.getItem('displayMode') || 'grid'
@@ -32,7 +32,7 @@ const EpisodeList = ({ malId, status }: { malId?: number; status: string }) => {
     };
 
     getAnimeEpisode();
-  }, [currentPage, totalPage]);
+  }, [malId, currentPage, totalPage]);
 
   const handleGridViewBtnClick = () => {
     window.localStorage.setItem('displayMode', 'grid');

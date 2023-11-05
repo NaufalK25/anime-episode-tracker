@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { fetchWrapper } from '../../utils/api';
 import EpisodeList from './EpisodeList';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
-const AnimeDetail = ({ malId }: { malId?: number }) => {
+const AnimeDetail = () => {
+  const params = useParams();
   const [animeDetail, setAnimeDetail] = useState<any>({});
+  const malId = params.malId || '0';
 
   useEffect(() => {
     const getAnimeDetail = async () => {
@@ -17,7 +19,7 @@ const AnimeDetail = ({ malId }: { malId?: number }) => {
     };
 
     getAnimeDetail();
-  }, [malId]);
+  }, [params]);
 
   return (
     <main className='p-2'>

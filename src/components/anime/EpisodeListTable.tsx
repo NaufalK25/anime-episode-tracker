@@ -38,7 +38,7 @@ const EpisodeListTable = ({ episodeList }: { episodeList: any }) => {
               </p>
             </td>
             <td className='text-center border border-slate-700 p-1'>
-              {episode.score}
+              {episode.score || '-'}
             </td>
           </tr>
         ))}
