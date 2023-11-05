@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchWrapper } from '../../utils/api';
 import EpisodeList from './EpisodeList';
+import { Link } from 'react-router-dom';
 
 const AnimeDetail = ({ malId }: { malId?: number }) => {
   const [animeDetail, setAnimeDetail] = useState<any>({});
@@ -16,7 +17,7 @@ const AnimeDetail = ({ malId }: { malId?: number }) => {
     };
 
     getAnimeDetail();
-  }, []);
+  }, [malId]);
 
   return (
     <main className='p-2'>
@@ -84,16 +85,20 @@ const AnimeDetail = ({ malId }: { malId?: number }) => {
           <div>
             {animeDetail.relations?.length > 0 &&
               animeDetail.relations.map((relation: any) => (
-                <div className='flex flex-col'>
+                <div
+                  className='flex flex-col'
+                  key={relation.relation}
+                >
                   {relation.entry
                     .filter((entry: any) => entry.type === 'anime')
                     .map((entry: any) => (
-                      <a
-                        href={`/anime/${entry.mal_id}`}
+                      <Link
+                        to={`/anime/${entry.mal_id}`}
                         className='hover:underline'
+                        key={entry.mal_id}
                       >
                         {relation.relation}: {entry.name}
-                      </a>
+                      </Link>
                     ))}
                 </div>
               ))}
