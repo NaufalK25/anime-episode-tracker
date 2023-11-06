@@ -1,28 +1,41 @@
+type Nullable<T> = T | null;
+
+type AnimeImage = {
+  image_url: string;
+  small_image_url: string;
+  large_image_url: string;
+};
+
+type AnimePropDate = {
+  day: Nullable<number>;
+  month: Nullable<number>;
+  year: Nullable<number>;
+};
+
+type AnimeGeneralData = {
+  mal_id: number;
+  type: string;
+  name: string;
+  url: string;
+};
+
 export type Anime = {
   mal_id: number;
   url: string;
   images: {
-    jpg: {
-      image_url: string;
-      small_image_url: string;
-      large_image_url: string;
-    };
-    webp: {
-      image_url: string;
-      small_image_url: string;
-      large_image_url: string;
-    };
+    jpg: AnimeImage;
+    webp: AnimeImage;
   };
   trailer: {
-    youtube_id: string | null;
-    url: string | null;
-    embed_url: string | null;
+    youtube_id: Nullable<string>;
+    url: Nullable<string>;
+    embed_url: Nullable<string>;
     images: {
-      image_url: string | null;
-      small_image_url: string | null;
-      medium_image_url: string | null;
-      large_image_url: string | null;
-      maximum_image_url: string | null;
+      image_url: Nullable<string>;
+      small_image_url: Nullable<string>;
+      medium_image_url: Nullable<string>;
+      large_image_url: Nullable<string>;
+      maximum_image_url: Nullable<string>;
     };
   };
   approved: boolean;
@@ -31,105 +44,48 @@ export type Anime = {
     title: string;
   }[];
   title: string;
-  title_english: string | null;
+  title_english: Nullable<string>;
   title_japanese: string;
-  title_synonyms: string[] | never[];
-  type: string;
+  title_synonyms: string[];
+  type: Nullable<string>;
   source: string;
   episodes: number;
   status: string;
   airing: boolean;
   aired: {
-    from: string;
-    to: string | null;
+    from: Nullable<string>;
+    to: Nullable<string>;
     prop: {
-      from: {
-        day: number;
-        month: number;
-        year: number;
-      };
-      to: {
-        day: number | null;
-        month: number | null;
-        year: number | null;
-      };
+      from: AnimePropDate;
+      to: AnimePropDate;
     };
     string: string;
   };
   duration: string;
-  rating: string;
-  score: number;
-  scored_by: number;
-  rank: number | null;
+  rating: Nullable<string>;
+  score: Nullable<number>;
+  scored_by: Nullable<number>;
+  rank: Nullable<number>;
   popularity: number;
   members: number;
   favorites: number;
   synopsis: string;
-  background: string | null;
-  season: string | null;
-  year: number | null;
+  background: Nullable<string>;
+  season: Nullable<string>;
+  year: Nullable<number>;
   broadcast: {
-    day: string | null;
-    time: string | null;
-    timezone: string | null;
-    string: string | null;
+    day: Nullable<string>;
+    time: Nullable<string>;
+    timezone: Nullable<string>;
+    string: Nullable<string>;
   };
-  producers:
-    | {
-        mal_id: number;
-        type: string;
-        name: string;
-        url: string;
-      }[]
-    | never[];
-  licensors:
-    | {
-        mal_id: number;
-        type: string;
-        name: string;
-        url: string;
-      }[]
-    | never[];
-  studios:
-    | {
-        mal_id: number;
-        type: string;
-        name: string;
-        url: string;
-      }[]
-    | never[];
-  genres:
-    | {
-        mal_id: number;
-        type: string;
-        name: string;
-        url: string;
-      }[]
-    | never[];
-  explicit_genres:
-    | {
-        mal_id: number;
-        type: string;
-        name: string;
-        url: string;
-      }[]
-    | never[];
-  themes:
-    | {
-        mal_id: number;
-        type: string;
-        name: string;
-        url: string;
-      }[]
-    | never[];
-  demographics:
-    | {
-        mal_id: number;
-        type: string;
-        name: string;
-        url: string;
-      }[]
-    | never[];
+  producers: AnimeGeneralData[];
+  licensors: AnimeGeneralData[];
+  studios: AnimeGeneralData[];
+  genres: AnimeGeneralData[];
+  explicit_genres: AnimeGeneralData[];
+  themes: AnimeGeneralData[];
+  demographics: AnimeGeneralData[];
 };
 
 export type AnimeFull = Anime & {
@@ -156,7 +112,7 @@ export type AnimeFull = Anime & {
   }[];
 };
 
-export type AnimeResponse = {
+export type AnimeSearchResponse = {
   pagination: {
     last_visible_page: number;
     has_next_page: boolean;
@@ -167,7 +123,7 @@ export type AnimeResponse = {
       per_page: number;
     };
   };
-  data: Anime[] | never[];
+  data: Anime[];
 };
 
 export type AnimeFullResponse = {

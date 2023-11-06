@@ -18,5 +18,5 @@ type Pagination = {
 
 export type EpisodeListResponse = {
   pagination: Pagination;
-  data: Episode[] | never[];
+  data: Episode[];
 };

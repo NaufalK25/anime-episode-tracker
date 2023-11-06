@@ -5,13 +5,13 @@ import SearchSVG from '../components/svg/SearchSVG';
 import { fetchWrapper } from '../utils/api';
 import AnimeCard from '../components/anime/AnimeCard';
 import AnimeCardSkeleton from '../components/skeleton/AnimeCardSkeleton';
-import { AnimeResponse, RandomAnimeResponse } from '../types/anime';
+import { AnimeSearchResponse, RandomAnimeResponse } from '../types/anime';
 import DiceSVG from '../components/svg/DiceSVG';
 
 const Home = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [animeSearch, setAnimeSearch] = useState<AnimeResponse | null>(null);
+  const [animeSearch, setAnimeSearch] = useState<AnimeSearchResponse | null>(null);
   const [animeTitle, setAnimeTitle] = useState('');
   const [keyword, setKeyword] = useState(searchParams.get('q') || '');
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,7 +40,7 @@ const Home = () => {
           setLoading(true);
           const animeSearch = (await fetchWrapper(
             `/anime?q=${keyword}&page=${currentPage}&limit=16&sfw`
-          )) as AnimeResponse;
+          )) as AnimeSearchResponse;
           setAnimeSearch(animeSearch);
           setTotalPage(animeSearch.pagination.last_visible_page);
           navigate(`?q=${keyword}`);
@@ -117,6 +117,7 @@ const Home = () => {
 
           <button
             className='outline-none'
+            title='Search'
             onClick={event => handleSearchBtnClick(event)}
           >
             <SearchSVG />
