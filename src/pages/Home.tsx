@@ -11,7 +11,9 @@ import DiceSVG from '../components/svg/DiceSVG';
 const Home = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [animeSearch, setAnimeSearch] = useState<AnimeSearchResponse | null>(null);
+  const [animeSearch, setAnimeSearch] = useState<AnimeSearchResponse | null>(
+    null
+  );
   const [animeTitle, setAnimeTitle] = useState('');
   const [keyword, setKeyword] = useState(searchParams.get('q') || '');
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,6 +33,15 @@ const Home = () => {
     };
 
     getAnimeTitle();
+
+    window.onkeydown = async event => {
+      if (event.key === 'r') {
+        const randomAnime = (await fetchWrapper(
+          '/random/anime'
+        )) as RandomAnimeResponse;
+        navigate(`/anime/${randomAnime.data.mal_id}`);
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -55,7 +66,7 @@ const Home = () => {
     getAnimeSearch();
   }, [searchParams, keyword, currentPage, totalPage]);
 
-  const handleInputEnterKey = async (
+  const handleInputEnterKeyPress = async (
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
     const key = event.key;
@@ -112,7 +123,7 @@ const Home = () => {
             className='outline-none bg-transparent p-1 border border-b-black border-transparent text-md'
             type='search'
             placeholder={animeTitle}
-            onKeyDown={event => handleInputEnterKey(event)}
+            onKeyDown={event => handleInputEnterKeyPress(event)}
           />
 
           <button
@@ -183,12 +194,16 @@ const Home = () => {
               </button>
             </div>
           </>
+        ) : keyword && animeSearch && animeSearch.data?.length === 0 ? (
+          <p className='text-xl'>No anime found, please try again!</p>
         ) : (
-          <p className='text-xl'>
-            {keyword && animeSearch && animeSearch.data?.length === 0
-              ? 'No anime found, please try again!'
-              : 'Try searching for an anime!'}
-          </p>
+          <>
+            <p className='text-xl'>Try searching for an anime!</p>
+            <p className='text-xl'>
+              Or, press the "r" key or click the dice icon for a random anime
+              page
+            </p>
+          </>
         )}
       </main>
     </>
