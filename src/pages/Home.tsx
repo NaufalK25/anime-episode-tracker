@@ -34,14 +34,16 @@ const Home = () => {
 
     getAnimeTitle();
 
-    window.onkeydown = async event => {
-      if (event.key === 'r') {
-        const randomAnime = (await fetchWrapper(
-          '/random/anime'
-        )) as RandomAnimeResponse;
-        navigate(`/anime/${randomAnime.data.mal_id}`);
-      }
-    };
+    // window.onkeydown = event => {
+    //   if (event.key === 'r') {
+    //     setTimeout(async () => {
+    //       const randomAnime = (await fetchWrapper(
+    //         '/random/anime'
+    //       )) as RandomAnimeResponse;
+    //       navigate(`/anime/${randomAnime.data.mal_id}`);
+    //     }, 500);
+    //   }
+    // };
   }, []);
 
   useEffect(() => {
@@ -127,7 +129,6 @@ const Home = () => {
           />
 
           <button
-            className='outline-none'
             title='Search'
             onClick={event => handleSearchBtnClick(event)}
           >
@@ -135,7 +136,6 @@ const Home = () => {
           </button>
 
           <button
-            className='outline-none'
             title='Get Random Anime'
             onClick={handleRandomBtnClick}
           >
@@ -200,8 +200,9 @@ const Home = () => {
           <>
             <p className='text-xl'>Try searching for an anime!</p>
             <p className='text-xl'>
-              Or, press the "r" key or click the dice icon for a random anime
-              page
+              {/* Or, press the "r" key or click the dice icon for a random anime
+              page */}
+              Or, click the dice icon for a random anime page
             </p>
           </>
         )}
