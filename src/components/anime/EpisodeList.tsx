@@ -6,11 +6,14 @@ import EpisodeListGrid from './EpisodeListGrid';
 import GridViewSVG from '../svg/GridViewSVG';
 import TableViewSVG from '../svg/TableViewSVG';
 import { fetchWrapper } from '../../utils/api';
+import { EpisodeListResponse } from '../../types/episode';
 
 dayjs.extend(relativeTime);
 
 const EpisodeList = ({ malId, status }: { malId: string; status: string }) => {
-  const [episodeList, setEpisodeList] = useState<any>({});
+  const [episodeList, setEpisodeList] = useState<EpisodeListResponse | null>(
+    null
+  );
   const [displayMode, setDisplayMode] = useState(
     window.localStorage.getItem('displayMode') || 'grid'
   );
@@ -20,14 +23,14 @@ const EpisodeList = ({ malId, status }: { malId: string; status: string }) => {
   useEffect(() => {
     const getAnimeEpisode = async () => {
       try {
-        const episodeList = await fetchWrapper(
+        const episodeList = (await fetchWrapper(
           `/anime/${malId}/episodes?page=${currentPage}`
-        );
+        )) as EpisodeListResponse;
         const totalPage = episodeList.pagination.last_visible_page;
         setEpisodeList(episodeList);
         setTotalPage(totalPage);
       } catch (err) {
-        setEpisodeList({});
+        setEpisodeList(null);
       }
     };
 
@@ -62,7 +65,7 @@ const EpisodeList = ({ malId, status }: { malId: string; status: string }) => {
 
   return (
     <div className='flex flex-col gap-y-4'>
-      <div className='flex gap-x-1 border border-black rounded shadow-md p-2 w-fit'>
+      <div className='flex gap-x-1 border border-gray-600 rounded shadow-md p-1 w-fit'>
         <button
           onClick={handleGridViewBtnClick}
           className='cursor-pointer'
@@ -80,7 +83,7 @@ const EpisodeList = ({ malId, status }: { malId: string; status: string }) => {
         </button>
       </div>
 
-      {episodeList.data?.length > 0 && (
+      {episodeList && episodeList.data?.length > 0 && (
         <div className='flex gap-x-5 items-center'>
           <button
             className='bg-blue-300 rounded-md p-2'
@@ -114,7 +117,7 @@ const EpisodeList = ({ malId, status }: { malId: string; status: string }) => {
         </div>
       )}
 
-      {episodeList.data?.length > 0 ? (
+      {episodeList && episodeList.data?.length > 0 ? (
         displayMode === 'grid' ? (
           <EpisodeListGrid episodeList={episodeList} />
         ) : (

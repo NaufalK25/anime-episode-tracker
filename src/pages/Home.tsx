@@ -5,11 +5,13 @@ import SearchSVG from '../components/svg/SearchSVG';
 import { fetchWrapper } from '../utils/api';
 import AnimeCard from '../components/anime/AnimeCard';
 import AnimeCardSkeleton from '../components/skeleton/AnimeCardSkeleton';
+import { AnimeResponse, RandomAnimeResponse } from '../types/anime';
+import DiceSVG from '../components/svg/DiceSVG';
 
 const Home = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [animeSearch, setAnimeSearch] = useState<any>({});
+  const [animeSearch, setAnimeSearch] = useState<AnimeResponse | null>(null);
   const [animeTitle, setAnimeTitle] = useState('');
   const [keyword, setKeyword] = useState(searchParams.get('q') || '');
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,7 +21,9 @@ const Home = () => {
   useEffect(() => {
     const getAnimeTitle = async () => {
       try {
-        const animeTitle = await fetchWrapper('/random/anime');
+        const animeTitle = (await fetchWrapper(
+          '/random/anime'
+        )) as RandomAnimeResponse;
         setAnimeTitle(animeTitle.data.title);
       } catch (err) {
         setAnimeTitle('');
@@ -34,15 +38,15 @@ const Home = () => {
       try {
         if (keyword.length > 0) {
           setLoading(true);
-          const animeSearch = await fetchWrapper(
+          const animeSearch = (await fetchWrapper(
             `/anime?q=${keyword}&page=${currentPage}&limit=16&sfw`
-          );
+          )) as AnimeResponse;
           setAnimeSearch(animeSearch);
           setTotalPage(animeSearch.pagination.last_visible_page);
           navigate(`?q=${keyword}`);
         }
       } catch (err) {
-        setAnimeSearch({});
+        setAnimeSearch(null);
       } finally {
         setLoading(false);
       }
@@ -74,6 +78,13 @@ const Home = () => {
       setKeyword(keyword);
       setCurrentPage(1);
     }
+  };
+
+  const handleRandomBtnClick = async () => {
+    const randomAnime = (await fetchWrapper(
+      '/random/anime'
+    )) as RandomAnimeResponse;
+    navigate(`/anime/${randomAnime.data.mal_id}`);
   };
 
   const handlePaginationFirstBtnClick = () => {
@@ -110,6 +121,14 @@ const Home = () => {
           >
             <SearchSVG />
           </button>
+
+          <button
+            className='outline-none'
+            title='Get Random Anime'
+            onClick={handleRandomBtnClick}
+          >
+            <DiceSVG />
+          </button>
         </div>
 
         {loading ? (
@@ -120,10 +139,10 @@ const Home = () => {
                 <AnimeCardSkeleton key={index} />
               ))}
           </div>
-        ) : animeSearch.data?.length > 0 ? (
+        ) : animeSearch && animeSearch.data?.length > 0 ? (
           <>
             <div className='grid grid-cols-4 gap-4 pb-10 px-10 w-full'>
-              {animeSearch.data.map((anime: any) => (
+              {animeSearch.data.map(anime => (
                 <AnimeCard
                   key={anime.mal_id}
                   anime={anime}
@@ -165,7 +184,7 @@ const Home = () => {
           </>
         ) : (
           <p className='text-xl'>
-            {keyword && animeSearch.data?.length === 0
+            {keyword && animeSearch && animeSearch.data?.length === 0
               ? 'No anime found, please try again!'
               : 'Try searching for an anime!'}
           </p>

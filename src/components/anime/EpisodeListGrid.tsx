@@ -1,7 +1,13 @@
-const EpisodeListGrid = ({ episodeList }: { episodeList: any }) => {
+import { EpisodeListResponse } from '../../types/episode';
+
+const EpisodeListGrid = ({
+  episodeList
+}: {
+  episodeList: EpisodeListResponse;
+}) => {
   return (
     <div className='grid grid-cols-10 md:grid-cols-20 w-fit text-center gap-1'>
-      {episodeList.data?.map((episode: any) => (
+      {episodeList.data?.map(episode => (
         <div
           key={episode.mal_id}
           title={`${episode.title} (${

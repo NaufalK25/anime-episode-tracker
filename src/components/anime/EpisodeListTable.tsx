@@ -1,6 +1,11 @@
 import dayjs from 'dayjs';
+import { EpisodeListResponse } from '../../types/episode';
 
-const EpisodeListTable = ({ episodeList }: { episodeList: any }) => {
+const EpisodeListTable = ({
+  episodeList
+}: {
+  episodeList: EpisodeListResponse;
+}) => {
   return (
     <table className='table-auto w-fit'>
       <thead>
@@ -12,7 +17,7 @@ const EpisodeListTable = ({ episodeList }: { episodeList: any }) => {
         </tr>
       </thead>
       <tbody>
-        {episodeList.data?.map((episode: any) => (
+        {episodeList.data?.map(episode => (
           <tr
             key={episode.mal_id}
             className={`${
