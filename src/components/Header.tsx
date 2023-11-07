@@ -10,7 +10,7 @@ const Header = ({}: {}) => {
     <nav className='px-10 py-5 bg-slate-200'>
       <Link
         to='/'
-        className='text-xl text-gray-800 font-bold'
+        className='outline-none text-xl text-gray-800 font-bold'
         onClick={handleBrandClick}
       >
         Anime Episode Tracker

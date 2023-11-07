@@ -21,7 +21,7 @@ const EpisodeListGrid = ({
               : 'bg-gray-400'
           } relative p-1 border border-black rounded text-xs`}
         >
-          <p>{episode.mal_id}</p>
+          <p className='text-sm p-1'>{episode.mal_id}</p>
         </div>
       ))}
     </div>

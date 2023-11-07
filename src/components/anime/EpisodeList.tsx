@@ -7,6 +7,8 @@ import GridViewSVG from '../svg/GridViewSVG';
 import TableViewSVG from '../svg/TableViewSVG';
 import { fetchWrapper } from '../../utils/api';
 import { EpisodeListResponse } from '../../types/episode';
+import EpisodeListGridSkeleton from '../skeleton/EpisodeListGridSkeleton';
+import EpisodeListTableSkeleton from '../skeleton/EpisodeListTableSkeleton';
 
 dayjs.extend(relativeTime);
 
@@ -19,10 +21,12 @@ const EpisodeList = ({ malId, status }: { malId: string; status: string }) => {
   );
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getAnimeEpisode = async () => {
       try {
+        setLoading(true);
         const episodeList = (await fetchWrapper(
           `/anime/${malId}/episodes?page=${currentPage}`
         )) as EpisodeListResponse;
@@ -31,6 +35,8 @@ const EpisodeList = ({ malId, status }: { malId: string; status: string }) => {
         setTotalPage(totalPage);
       } catch (err) {
         setEpisodeList(null);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -119,11 +125,18 @@ const EpisodeList = ({ malId, status }: { malId: string; status: string }) => {
 
       {episodeList && episodeList.data?.length > 0 ? (
         displayMode === 'grid' ? (
-          <EpisodeListGrid episodeList={episodeList} />
-        ) : (
-          displayMode === 'table' && (
-            <EpisodeListTable episodeList={episodeList} />
+          loading ? (
+            <EpisodeListGridSkeleton />
+          ) : (
+            <EpisodeListGrid episodeList={episodeList} />
           )
+        ) : (
+          displayMode === 'table' &&
+          (loading ? (
+            <EpisodeListTableSkeleton />
+          ) : (
+            <EpisodeListTable episodeList={episodeList} />
+          ))
         )
       ) : status?.toLowerCase() === 'not yet aired' ? (
         'Anime Still Has Not Aired Yet'
