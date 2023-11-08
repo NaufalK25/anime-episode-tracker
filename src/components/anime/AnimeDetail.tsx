@@ -7,17 +7,21 @@ import { AnimeFull, AnimeFullResponse } from '../../types/anime';
 const AnimeDetail = () => {
   const params = useParams();
   const [animeDetail, setAnimeDetail] = useState<AnimeFull | null>(null);
+  const [loading, setLoading] = useState(false);
   const malId = params.malId || '0';
 
   useEffect(() => {
     const getAnimeDetail = async () => {
       try {
+        setLoading(true);
         const animeDetail = (await fetchWrapper(
           `/anime/${malId}/full`
         )) as AnimeFullResponse;
         setAnimeDetail(animeDetail.data);
       } catch (err) {
         setAnimeDetail(null);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -34,11 +38,15 @@ const AnimeDetail = () => {
           &larr; Go Back
         </Link>
         <p className='font-bold text-md max-w-xs'>{animeDetail?.title}</p>
-        <img
-          src={animeDetail?.images?.jpg?.image_url}
-          alt={animeDetail?.title}
-          width={300}
-        />
+        {loading ? (
+          <div className='border border-blue-300 animate-pulse bg-slate-700 shadow w-72 h-[26rem]'></div>
+        ) : (
+          <img
+            src={animeDetail?.images?.jpg?.image_url}
+            alt={animeDetail?.title}
+            width={300}
+          />
+        )}
         <div className='flex flex-col max-w-xs'>
           {[
             ['Type', animeDetail?.type],
@@ -49,13 +57,13 @@ const AnimeDetail = () => {
             ['Score', animeDetail?.score],
             ['Season', animeDetail?.season],
             ['Year', animeDetail?.year]
-          ].map(data => (
+          ].map(([field, value]) => (
             <div
               className='flex justify-between'
-              key={data[0]}
+              key={field}
             >
-              <p className='font-bold'>{data[0]}</p>
-              <p className='capitalize'>{data[1] || '-'}</p>
+              <p className='font-bold'>{field}</p>
+              <p className='capitalize'>{value || '-'}</p>
             </div>
           ))}
           {[
@@ -77,13 +85,13 @@ const AnimeDetail = () => {
                 ?.map(demography => demography.name)
                 .join(', ')
             ]
-          ].map(data => (
+          ].map(([field, value]) => (
             <div
               className='flex flex-col'
-              key={data[0]}
+              key={field}
             >
-              <p className='font-bold'>{data[0]}</p>
-              <p className='capitaliz'>{data[1] || '-'}</p>
+              <p className='font-bold'>{field}</p>
+              <p className='capitalize'>{value || '-'}</p>
             </div>
           ))}
         </div>
