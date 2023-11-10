@@ -1,5 +1,3 @@
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import { useEffect, useState } from 'react';
 import EpisodeListTable from './EpisodeListTable';
 import EpisodeListGrid from './EpisodeListGrid';
@@ -9,8 +7,6 @@ import { fetchWrapper } from '../../utils/api';
 import { EpisodeListResponse } from '../../types/episode';
 import EpisodeListGridSkeleton from '../skeleton/EpisodeListGridSkeleton';
 import EpisodeListTableSkeleton from '../skeleton/EpisodeListTableSkeleton';
-
-dayjs.extend(relativeTime);
 
 const EpisodeList = ({ malId, status }: { malId: string; status: string }) => {
   const [episodeList, setEpisodeList] = useState<EpisodeListResponse | null>(
@@ -70,7 +66,7 @@ const EpisodeList = ({ malId, status }: { malId: string; status: string }) => {
   };
 
   return (
-    <div className='flex flex-col gap-y-4'>
+    <div className='flex flex-col gap-y-4 p-2'>
       <div className='flex gap-x-1 border border-gray-600 rounded shadow-md p-1 w-fit'>
         <button
           onClick={handleGridViewBtnClick}
@@ -90,7 +86,7 @@ const EpisodeList = ({ malId, status }: { malId: string; status: string }) => {
       </div>
 
       {episodeList && episodeList.data?.length > 0 && (
-        <div className='flex gap-x-5 items-center'>
+        <div className='flex gap-x-5 items-center justify-center md:justify-start'>
           <button
             className='bg-blue-300 rounded-md p-2'
             onClick={handlePaginationFirstBtnClick}

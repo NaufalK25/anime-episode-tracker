@@ -8,9 +8,7 @@ export default {
         roboto: ['Roboto', 'sans-serif']
       },
       gridTemplateColumns: {
-        15: 'repeat(15, minmax(0, 1fr))',
-        20: 'repeat(20, minmax(0, 1fr))',
-        auto: 'auto auto auto'
+        20: 'repeat(20, minmax(0, 1fr))'
       }
     }
   },

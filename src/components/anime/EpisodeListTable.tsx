@@ -7,7 +7,7 @@ const EpisodeListTable = ({
   episodeList: EpisodeListResponse;
 }) => {
   return (
-    <table className='table-auto w-fit'>
+    <table className='table-auto w-fit text-xs md:text-sm'>
       <thead>
         <tr>
           <th className='border border-slate-700 p-1'>Episode</th>
@@ -35,11 +35,8 @@ const EpisodeListTable = ({
               episode.filler ? 'Filler' : episode.recap ? 'Recap' : 'Canon'
             })`}</td>
             <td className='border border-slate-700 p-1'>
-              <p
-                className='text-center'
-                title={dayjs(episode.aired).format('ddd, DD MMM YYYY')}
-              >
-                {dayjs(episode.aired).fromNow()}
+              <p className='text-center'>
+                {dayjs(episode.aired).format('ddd, DD MMM YYYY')}
               </p>
             </td>
             <td className='text-center border border-slate-700 p-1'>

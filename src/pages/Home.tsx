@@ -135,7 +135,7 @@ const Home = () => {
         </div>
 
         {loading ? (
-          <div className='grid grid-cols-4 gap-4 pb-10 px-10 w-full'>
+          <div className='grid grid-cols-1 md:grid-cols-4 gap-4 pb-10 px-10 w-full'>
             {Array(8)
               .fill(null)
               .map((_, index) => (
@@ -144,7 +144,7 @@ const Home = () => {
           </div>
         ) : animeSearch && animeSearch.data?.length > 0 ? (
           <>
-            <div className='grid grid-cols-4 gap-4 pb-10 px-10 w-full'>
+            <div className='grid grid-cols-1 md:grid-cols-4 gap-4 pb-10 px-10 w-full'>
               {animeSearch.data.map(anime => (
                 <AnimeCard
                   key={anime.mal_id}
@@ -186,11 +186,15 @@ const Home = () => {
             </div>
           </>
         ) : keyword && animeSearch && animeSearch.data?.length === 0 ? (
-          <p className='text-xl'>No anime found, please try again!</p>
+          <p className='text-xl text-center px-1'>
+            No anime found, please try again!
+          </p>
         ) : (
           <>
-            <p className='text-xl'>Try searching for an anime!</p>
-            <p className='text-xl'>
+            <p className='text-xl text-center px-1'>
+              Try searching for an anime!
+            </p>
+            <p className='text-xl text-center px-1'>
               Or, click the dice icon for a random anime page
             </p>
           </>

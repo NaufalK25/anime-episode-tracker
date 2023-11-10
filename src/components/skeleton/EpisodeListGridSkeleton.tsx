@@ -1,6 +1,6 @@
 const EpisodeListGridSkeleton = () => {
   return (
-    <div className='grid grid-cols-10 md:grid-cols-20 gap-1'>
+    <div className='grid grid-cols-8 md:grid-cols-20 gap-1'>
       {Array(100)
         .fill(null)
         .map((_, index) => (

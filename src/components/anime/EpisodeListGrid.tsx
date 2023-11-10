@@ -6,9 +6,9 @@ const EpisodeListGrid = ({
   episodeList: EpisodeListResponse;
 }) => {
   return (
-    <div className='grid grid-cols-10 md:grid-cols-20 w-fit text-center gap-1'>
+    <div className='grid grid-cols-8 md:grid-cols-20 w-fit text-center gap-1'>
       {episodeList.data?.map(episode => (
-        <div
+        <p
           key={episode.mal_id}
           title={`${episode.title} (${
             episode.filler ? 'Filler' : episode.recap ? 'Recap' : 'Canon'
@@ -19,10 +19,10 @@ const EpisodeListGrid = ({
               : episode.recap
               ? 'bg-blue-400'
               : 'bg-gray-400'
-          } relative p-1 border border-black rounded text-xs`}
+          } relative p-2 border border-black rounded text-sm`}
         >
-          <p className='text-sm p-1'>{episode.mal_id}</p>
-        </div>
+          {episode.mal_id}
+        </p>
       ))}
     </div>
   );

@@ -29,7 +29,7 @@ const AnimeDetail = () => {
   }, [params]);
 
   return (
-    <main className='flex gap-x-3 p-2'>
+    <main className='flex flex-col md:flex-row gap-x-3 p-2'>
       <div className='flex flex-col'>
         <Link
           to='/'
@@ -37,15 +37,21 @@ const AnimeDetail = () => {
         >
           &larr; Go Back
         </Link>
-        <p className='font-bold text-md max-w-xs'>{animeDetail?.title}</p>
+        <p className='text-center font-bold text-md max-w-xs'>
+          {animeDetail?.title}
+        </p>
         {loading ? (
-          <div className='border border-blue-300 animate-pulse bg-slate-700 shadow w-72 h-[26rem]'></div>
+          <div className='flex justify-center'>
+            <div className='border border-blue-300 animate-pulse bg-slate-700 shadow w-72 h-[26rem]'></div>
+          </div>
         ) : (
-          <img
-            src={animeDetail?.images?.jpg?.image_url}
-            alt={animeDetail?.title}
-            width={300}
-          />
+          <div className='flex justify-center'>
+            <img
+              src={animeDetail?.images?.jpg?.image_url}
+              alt={animeDetail?.title}
+              width={300}
+            />
+          </div>
         )}
         <div className='flex flex-col max-w-xs'>
           {[
@@ -59,11 +65,13 @@ const AnimeDetail = () => {
             ['Year', animeDetail?.year]
           ].map(([field, value]) => (
             <div
-              className='flex justify-between'
+              className='flex flex-col md:flex-row justify-between'
               key={field}
             >
-              <p className='font-bold'>{field}</p>
-              <p className='capitalize'>{value || '-'}</p>
+              <div className='text-center md:text-start'>
+                <p className='font-bold'>{field}</p>
+                <p className='capitalize'>{value || '-'}</p>
+              </div>
             </div>
           ))}
           {[
@@ -90,14 +98,18 @@ const AnimeDetail = () => {
               className='flex flex-col'
               key={field}
             >
-              <p className='font-bold'>{field}</p>
-              <p className='capitalize'>{value || '-'}</p>
+              <div className='text-center md:text-start'>
+                <p className='font-bold '>{field}</p>
+                <p className='capitalize'>{value || '-'}</p>
+              </div>
             </div>
           ))}
         </div>
       </div>
       <div className='flex flex-col gap-y-3'>
-        <p className='max-w-3xl'>{animeDetail?.synopsis}</p>
+        <p className='max-w-3xl break-all md:break-normal text-center md:text-start'>
+          {animeDetail?.synopsis}
+        </p>
         <div>
           {animeDetail?.relations &&
             animeDetail.relations.length > 0 &&
