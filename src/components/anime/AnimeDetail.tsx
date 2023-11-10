@@ -29,8 +29,8 @@ const AnimeDetail = () => {
   }, [params]);
 
   return (
-    <main className='flex flex-col md:flex-row gap-x-3 p-2'>
-      <div className='flex flex-col'>
+    <main className='flex flex-col md:flex-row gap-3 p-2'>
+      <div className='flex flex-col gap-y-1'>
         <Link
           to='/'
           className='hover:underline text-blue-600 hover:text-blue-800'
@@ -65,13 +65,11 @@ const AnimeDetail = () => {
             ['Year', animeDetail?.year]
           ].map(([field, value]) => (
             <div
-              className='flex flex-col md:flex-row justify-between'
+              className='flex flex-col md:flex-row justify-between text-center md:text-start'
               key={field}
             >
-              <div className='text-center md:text-start'>
-                <p className='font-bold'>{field}</p>
-                <p className='capitalize'>{value || '-'}</p>
-              </div>
+              <p className='font-bold'>{field}</p>
+              <p className='capitalize'>{value || '-'}</p>
             </div>
           ))}
           {[
@@ -95,19 +93,17 @@ const AnimeDetail = () => {
             ]
           ].map(([field, value]) => (
             <div
-              className='flex flex-col'
+              className='flex flex-col text-center md:text-start'
               key={field}
             >
-              <div className='text-center md:text-start'>
-                <p className='font-bold '>{field}</p>
-                <p className='capitalize'>{value || '-'}</p>
-              </div>
+              <p className='font-bold '>{field}</p>
+              <p className='capitalize'>{value || '-'}</p>
             </div>
           ))}
         </div>
       </div>
       <div className='flex flex-col gap-y-3'>
-        <p className='max-w-3xl break-all md:break-normal text-center md:text-start'>
+        <p className='md:max-w-4xl text-center md:text-start'>
           {animeDetail?.synopsis}
         </p>
         <div>
