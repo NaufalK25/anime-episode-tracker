@@ -10,9 +10,7 @@ const EpisodeListGrid = ({
       {episodeList.data?.map(episode => (
         <p
           key={episode.mal_id}
-          title={`${episode.title} (${
-            episode.filler ? 'Filler' : episode.recap ? 'Recap' : 'Canon'
-          })`}
+          title={episode.title}
           className={`${
             episode.filler
               ? 'bg-yellow-400'

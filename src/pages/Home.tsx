@@ -6,7 +6,7 @@ import { fetchWrapper } from '../utils/api';
 import AnimeCard from '../components/anime/AnimeCard';
 import AnimeCardSkeleton from '../components/skeleton/AnimeCardSkeleton';
 import { AnimeSearchResponse, RandomAnimeResponse } from '../types/anime';
-import DiceSVG from '../components/svg/DiceSVG';
+import AnimeRandomizerButton from '../components/anime/AnimeRandomizerButton';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -82,13 +82,6 @@ const Home = () => {
     }
   };
 
-  const handleRandomBtnClick = async () => {
-    const randomAnime = (await fetchWrapper(
-      '/random/anime'
-    )) as RandomAnimeResponse;
-    navigate(`/anime/${randomAnime.data.mal_id}`);
-  };
-
   const handlePaginationFirstBtnClick = () => {
     setCurrentPage(1);
   };
@@ -125,13 +118,7 @@ const Home = () => {
             <SearchSVG />
           </button>
 
-          <button
-            title='Get Random Anime'
-            className='outline-none'
-            onClick={handleRandomBtnClick}
-          >
-            <DiceSVG />
-          </button>
+          <AnimeRandomizerButton />
         </div>
 
         {loading ? (

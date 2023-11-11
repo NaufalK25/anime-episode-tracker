@@ -1,10 +1,12 @@
+type Nullable<T> = T | null;
+
 export type Episode = {
   mal_id: number;
   url: string;
   title: string;
-  title_japanese: string;
-  title_romanji: string;
-  aired: string;
+  title_japanese: Nullable<string>;
+  title_romanji: Nullable<string>;
+  aired: Nullable<string>;
   score: number;
   filler: boolean;
   recap: boolean;

@@ -31,12 +31,12 @@ const EpisodeListTable = ({
             <td className='text-center border border-slate-700 p-1'>
               {episode.mal_id}
             </td>
-            <td className='border border-slate-700 p-1'>{`${episode.title} (${
-              episode.filler ? 'Filler' : episode.recap ? 'Recap' : 'Canon'
-            })`}</td>
+            <td className='border border-slate-700 p-1'>{episode.title}</td>
             <td className='border border-slate-700 p-1'>
               <p className='text-center'>
-                {dayjs(episode.aired).format('ddd, DD MMM YYYY')}
+                {episode.aired
+                  ? dayjs(episode.aired).format('ddd, DD MMM YYYY')
+                  : '-'}
               </p>
             </td>
             <td className='text-center border border-slate-700 p-1'>
