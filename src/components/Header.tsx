@@ -7,7 +7,7 @@ const Header = ({}: {}) => {
   };
 
   return (
-    <nav className='px-10 py-5 bg-slate-200'>
+    <nav className='px-10 py-5 bg-slate-200 flex w-full justify-center md:justify-start items-center'>
       <Link
         to='/'
         className='outline-none text-xl text-gray-800 font-bold'
