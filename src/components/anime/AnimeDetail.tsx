@@ -52,7 +52,7 @@ const AnimeDetail = () => {
               width={300}
             />
           )}
-          <div className='flex flex-col max-w-xs'>
+          <div className='flex flex-col max-w--xs'>
             {[
               ['Type', animeDetail?.type],
               ['Source', animeDetail?.source],
@@ -61,17 +61,7 @@ const AnimeDetail = () => {
               ['Rating', animeDetail?.rating],
               ['Score', animeDetail?.score],
               ['Season', animeDetail?.season],
-              ['Year', animeDetail?.year]
-            ].map(([field, value]) => (
-              <div
-                className='flex flex-col md:flex-row justify-between text-center md:text-start'
-                key={field}
-              >
-                <p className='font-bold'>{field}</p>
-                <p className='capitalize'>{value || '-'}</p>
-              </div>
-            ))}
-            {[
+              ['Year', animeDetail?.year],
               [
                 'Studios',
                 animeDetail?.studios?.map(studio => studio.name).join(', ')
@@ -92,10 +82,10 @@ const AnimeDetail = () => {
               ]
             ].map(([field, value]) => (
               <div
-                className='flex flex-col text-center md:text-start'
+                className='flex flex-col text-center gap-y-0.5'
                 key={field}
               >
-                <p className='font-bold '>{field}</p>
+                <p className='font-bold'>{field}</p>
                 <p className='capitalize'>{value || '-'}</p>
               </div>
             ))}
